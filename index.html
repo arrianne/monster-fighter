@@ -12,7 +12,10 @@
         <div class="small-6 columns">
             <h1 class="text-center">YOU</h1>
             <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
+              <!-- the width of this div here will be 100% of its view container which is the healthbar -->
+                <div class="healthbar text-center"
+                style="background-color: green; margin: 0; color: white;"
+                :style="{width: playerHealth + '%'}">
                   {{ playerHealth }}
                 </div>
             </div>
