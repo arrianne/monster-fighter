@@ -12,25 +12,18 @@ new Vue({
       this.monsterHealth = 100;
     },
     attack: function() {
+
       // Removing health from monster
       this.monsterHealth -= this.calculateDamage(3, 10);
-
-      if(this.monsterHealth <= 0) {
-        alert('you won!');
-        this.gameIsRunning = false;
+      // we add a return here to stop the unnecessary code below running from running
+      if (this.checkWin()) {
         return;
       }
 
       // Removing health from player
-      var max = 12;
-      var min = 5;
       this.playerHealth -= this.calculateDamage(5, 12);
-
-      if(this.playerHealth <= 0) {
-        alert('you lost!');
-        this.gameIsRunning = false;
-        return;
-      }
+      // We dont need a return here as it is the end of the function anyway
+      this.checkWin();
 
     },
     specialAttack: function() {
@@ -54,6 +47,7 @@ new Vue({
         } else {
           this.gameIsRunning = false;
         }
+        return true;
         return;
       } else if (this.playerHealth <= 0) {
         if (confirm('You lost! New Game?')) {
@@ -61,7 +55,9 @@ new Vue({
         } else {
           this.gameIsRunning = false;
         }
+        return true;
       }
+      return false;
     }
   }
 
