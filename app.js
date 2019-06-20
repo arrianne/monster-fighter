@@ -11,29 +11,45 @@ new Vue({
       this.playerHealth = 100;
       this.monsterHealth = 100;
     },
-    attack: function() {
 
+    attack: function() {
       // Removing health from monster
       this.monsterHealth -= this.calculateDamage(3, 10);
       // we add a return here to stop the unnecessary code below running from running
       if (this.checkWin()) {
         return;
       }
-
-      // Removing health from player
-      this.playerHealth -= this.calculateDamage(5, 12);
-      // We dont need a return here as it is the end of the function anyway
-      this.checkWin();
-
+      //added a new function for monster attacks below as this was being repeated
+      this.monsterAttacks();
     },
+
     specialAttack: function() {
-
+      // This can be copied from the attack function and just altered
+      this.monsterHealth -= this.calculateDamage(10, 20);
+      // we add a return here to stop the unnecessary code below running from running
+      if (this.checkWin()) {
+        return;
+      }
+      this.monsterAttacks();
     },
+
     heal: function() {
-
+      // this if statement prevents the players health going above 100
+      if (this.playerHealth <= 90) {
+        this.playerHealth += 10;
+      } else {
+        this.playerHealth = 100;
+      }
+      this.monsterAttacks();
     },
-    giveUp: function() {
 
+    giveUp: function() {
+      this.gameIsRunning = false;
+    },
+
+    monsterAttacks: function() {
+      this.playerHealth -= this.calculateDamage(5, 12);
+      this.checkWin();
     },
 
     calculateDamage: function(min, max) {
