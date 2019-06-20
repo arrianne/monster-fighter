@@ -4,6 +4,7 @@ new Vue({
     playerHealth: 100,
     monsterHealth: 100,
     gameIsRunning: false
+    turns: []
   },
   methods: {
     startGame: function() {
@@ -13,8 +14,14 @@ new Vue({
     },
 
     attack: function() {
+      var damage = this.calculateDamage(5, 12);
       // Removing health from monster
-      this.monsterHealth -= this.calculateDamage(3, 10);
+      this.monsterHealth -= damage;
+      // shift will add the turn to the start of the list
+      this.turns.unshift({
+        isPlayer: true,
+        text: 'Player hits Monster for ' + damage;
+      });
       // we add a return here to stop the unnecessary code below running from running
       if (this.checkWin()) {
         return;
@@ -48,8 +55,13 @@ new Vue({
     },
 
     monsterAttacks: function() {
-      this.playerHealth -= this.calculateDamage(5, 12);
+      var damage = this.calculateDamage(5, 12);
+      this.playerHealth -= damage;
       this.checkWin();
+      this.turns.unshift({
+        isPlayer: false,
+        text: 'Player hits Monster for ' + damage;
+      });
     },
 
     calculateDamage: function(min, max) {
