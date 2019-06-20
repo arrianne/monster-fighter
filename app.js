@@ -3,7 +3,7 @@ new Vue({
   data: {
     playerHealth: 100,
     monsterHealth: 100,
-    gameIsRunning: false
+    gameIsRunning: false,
     turns: []
   },
   methods: {
@@ -20,7 +20,7 @@ new Vue({
       // shift will add the turn to the start of the list
       this.turns.unshift({
         isPlayer: true,
-        text: 'Player hits Monster for ' + damage;
+        text: 'Player hits Monster for ' + damage
       });
       // we add a return here to stop the unnecessary code below running from running
       if (this.checkWin()) {
@@ -60,7 +60,7 @@ new Vue({
       this.checkWin();
       this.turns.unshift({
         isPlayer: false,
-        text: 'Player hits Monster for ' + damage;
+        text: 'Monster hits Player for ' + damage
       });
     },
 
