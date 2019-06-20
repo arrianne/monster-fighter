@@ -45,7 +45,23 @@ new Vue({
 
     calculateDamage: function(min, max) {
       return Math.max(Math.floor(Math.random() * max) + 1, min);
-
+    },
+    // 'Confirm' is a built in function which gives us a yes or no dialogue
+    checkWin: function() {
+      if(this.monsterHealth <= 0) {
+        if(confirm('You won! New game?')) {
+          this.startGame();
+        } else {
+          this.gameIsRunning = false;
+        }
+        return;
+      } else if (this.playerHealth <= 0) {
+        if (confirm('You lost! New Game?')) {
+          this.startGame();
+        } else {
+          this.gameIsRunning = false;
+        }
+      }
     }
   }
 
